@@ -7,8 +7,8 @@ order = "http://localhost:5002"
 
 Book = {
     1: {"title": "How to get a good grade in DOS in 40 minutes a day", "stock": 10, "cost": 70, "topic": "distributed systems"},
-    2: {"title": "RPCs for Noobs", "stock": 15, "cost": 80, "topic": "distributed systems"},
-    3: {"title": "Xen and the Art of Surviving Undergraduate School", "stock": 35, "cost": 75, "topic": "undergraduate school"},
+    2: {"title": "RPCs for Noobs", "stock": 5, "cost": 80, "topic": "distributed systems"},
+    3: {"title": "Xen and the Art of Surviving Undergraduate School", "stock": 1, "cost": 75, "topic": "undergraduate school"},
     4: {"title": "Cooking for the Impatient Undergrad", "stock": 18, "cost": 60, "topic": "undergraduate school"},
 }
 ###### query-by-subject ######
@@ -26,7 +26,7 @@ def query_by_subject(topic):
 def query_by_item(item_number):
 
     if item_number not in Book:
-        return jsonify({"error": "Not found"}), 404
+        return jsonify({"Error": "Not found"}), 404
     
 ### I found book #####
     Item = Book[item_number]
@@ -39,14 +39,15 @@ def query_by_item(item_number):
 @app.route('/update/<int:item_number>', methods=['PUT'])
 def update(item_number):
     if item_number not in Book:
-        return jsonify({"error": "Not found"}), 404
+        return jsonify({"Error": "Not found"}), 404
+    
     data = request.get_json()
 
     if 'cost' in data:
         Book[item_number]['cost'] = data['cost']
     if 'stock' in data:
         Book[item_number]['stock'] += data['stock']
-    return jsonify({"message": "Successful"})
+    return jsonify({"Message": "Updated Successful"})
 
 if __name__ == '__main__':
     app.run(port = 5001, debug = True)
