@@ -41,9 +41,9 @@ def purchase(item_number):
             #### Ok #####
             if update_response.status_code == 200:
                 time = datetime.now().strftime("%H:%M:%S")
-                # Successfully updated stock, log the purchase
+                # Successfull update stock ####
                 order = {'ItemNumber': item_number, 'Title': title, 'Status': 'Purchase Successful', 'Time': time }   
-                ##  update ##
+                ## update ##
                 update_order_log(order)
                 return jsonify(order), 200
             else:
