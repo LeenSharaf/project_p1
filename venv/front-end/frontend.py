@@ -33,14 +33,14 @@ def info(item_number):
         return jsonify({"Error": "Not Found"}), response.status_code
 
 ###### purchase #######
-##### PUT http://localhost:5000/purchase/item_number
+##### POST http://localhost:5000/purchase/item_number
 
-@app.route('/purchase/<int:item_number>', methods=['PUT'])
+@app.route('/purchase/<int:item_number>', methods=['POST'])
 def purchase(item_number):
-    response = requests.put(f'{order}/purchase/{item_number}')
+     #### go to order server #####
+    response = requests.post(f'{order}/purchase/{item_number}')
 
     return response.text, response.status_code, response.headers.items()
-   
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
